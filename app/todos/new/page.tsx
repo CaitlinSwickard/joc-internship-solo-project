@@ -2,6 +2,7 @@
 import {
   Button,
   Callout,
+  Text,
   TextArea,
   TextField,
 } from "@radix-ui/themes";
@@ -11,17 +12,23 @@ import { useForm, Controller } from "react-hook-form";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { createTodoSchema } from "@/app/validationSchema";
+import { z } from "zod";
 
 // interface to define shape/fields of form
-interface TodoForm {
-  title: string;
-  dueDate: string;
-  description: string;
-}
+type TodoForm = z.infer<typeof createTodoSchema>;
 
 const NewTodoPage = () => {
   const router = useRouter();
-  const { register, control, handleSubmit } = useForm<TodoForm>();
+  const {
+    register,
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<TodoForm>({
+    resolver: zodResolver(createTodoSchema),
+  });
   const [error, setError] = useState("");
 
   return (
@@ -48,10 +55,16 @@ const NewTodoPage = () => {
             {...register("title")}
           />
         </TextField.Root>
+        {errors.title && (
+          <Text color="red" as='p'>{errors.title.message}</Text>
+        )}
         <TextField.Input
           placeholder="Due Date: MM/DD/YY"
           {...register("dueDate")}
         />
+        {errors.dueDate && (
+          <Text color="red" as='p'>{errors.dueDate.message}</Text>
+        )}
         <Controller
           name="description"
           control={control}
@@ -59,6 +72,9 @@ const NewTodoPage = () => {
             <SimpleMDE placeholder="Description" {...field} />
           )}
         />
+        {errors.description && (
+          <Text color="red" as='p'>{errors.description.message}</Text>
+        )}
 
         <Button>Submit New Todo</Button>
       </form>
