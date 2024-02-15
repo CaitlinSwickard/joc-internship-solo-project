@@ -1,11 +1,5 @@
 "use client";
-import {
-  Button,
-  Callout,
-  Text,
-  TextArea,
-  TextField,
-} from "@radix-ui/themes";
+import { Button, Callout, TextField } from "@radix-ui/themes";
 import SimpleMDE from "react-simplemde-editor";
 import "easymde/dist/easymde.min.css";
 import { useForm, Controller } from "react-hook-form";
@@ -22,6 +16,7 @@ type TodoForm = z.infer<typeof createTodoSchema>;
 
 const NewTodoPage = () => {
   const router = useRouter();
+
   const {
     register,
     control,
@@ -30,7 +25,17 @@ const NewTodoPage = () => {
   } = useForm<TodoForm>({
     resolver: zodResolver(createTodoSchema),
   });
+
   const [error, setError] = useState("");
+
+  const onSubmit = handleSubmit(async (data) => {
+    try {
+      await axios.post("/api/todos", data);
+      router.push("/todos");
+    } catch (error) {
+      setError("Error occurred");
+    }
+  });
 
   return (
     <div className="max-w-xl">
@@ -39,17 +44,7 @@ const NewTodoPage = () => {
           <Callout.Text color="red">{error}</Callout.Text>
         </Callout.Root>
       )}
-      <form
-        className=" space-y-3"
-        onSubmit={handleSubmit(async (data) => {
-          try {
-            await axios.post("/api/todos", data);
-            router.push("/todos");
-          } catch (error) {
-            setError("Error occurred");
-          }
-        })}
-      >
+      <form className=" space-y-3" onSubmit={onSubmit}>
         <TextField.Root>
           <TextField.Input
             placeholder="Title"
