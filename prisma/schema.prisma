@@ -17,6 +17,7 @@ model Todo {
   description String   @db.Text
   priority    Priority @default(HIGH)
   dueDate     String
+  createdAt   DateTime @default(now())
 }
 
 enum Priority {
