@@ -15,6 +15,7 @@ import { useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { createTodoSchema } from "@/app/validationSchema";
 import { z } from "zod";
+import ErrorMessage from "@/app/_components/ErrorMessage";
 
 // interface to define shape/fields of form
 type TodoForm = z.infer<typeof createTodoSchema>;
@@ -55,16 +56,16 @@ const NewTodoPage = () => {
             {...register("title")}
           />
         </TextField.Root>
-        {errors.title && (
-          <Text color="red" as='p'>{errors.title.message}</Text>
-        )}
+
+        <ErrorMessage>{errors.title?.message}</ErrorMessage>
+
         <TextField.Input
           placeholder="Due Date: MM/DD/YY"
           {...register("dueDate")}
         />
-        {errors.dueDate && (
-          <Text color="red" as='p'>{errors.dueDate.message}</Text>
-        )}
+
+        <ErrorMessage>{errors.dueDate?.message}</ErrorMessage>
+
         <Controller
           name="description"
           control={control}
@@ -72,9 +73,8 @@ const NewTodoPage = () => {
             <SimpleMDE placeholder="Description" {...field} />
           )}
         />
-        {errors.description && (
-          <Text color="red" as='p'>{errors.description.message}</Text>
-        )}
+
+        <ErrorMessage>{errors.description?.message}</ErrorMessage>
 
         <Button>Submit New Todo</Button>
       </form>
