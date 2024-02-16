@@ -4,6 +4,7 @@ import { FiTrash2 } from "react-icons/fi";
 import { BiEditAlt } from "react-icons/bi";
 import Link from "next/link";
 import React from "react";
+import TodoPriorityBadge from "../_components/TodoPriorityBadge";
 
 const TodoPage = async () => {
   const todos = await prisma.todo.findMany();
@@ -24,9 +25,9 @@ const TodoPage = async () => {
                 </Text>
 
                 <Separator my="3" size="3" />
-                {/* <div className="mb-2">
+                <div className="mb-2">
                   <TodoPriorityBadge priority={todo.priority} />
-                </div> */}
+                </div>
 
                 <Text as="div" color="gray" size="2">
                   Due Date: {todo.dueDate}
