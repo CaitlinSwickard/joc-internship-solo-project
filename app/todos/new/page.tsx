@@ -1,6 +1,7 @@
 "use client";
 import { Button, Callout, TextField } from "@radix-ui/themes";
-import SimpleMDE from "react-simplemde-editor";
+import dynamic from "next/dynamic";
+// import SimpleMDE from "react-simplemde-editor";
 import "easymde/dist/easymde.min.css";
 import { useForm, Controller } from "react-hook-form";
 import axios from "axios";
@@ -10,6 +11,11 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { createTodoSchema } from "@/app/validationSchema";
 import { z } from "zod";
 import ErrorMessage from "@/app/_components/ErrorMessage";
+
+// disable server side rendering of mdk editor
+const SimpleMDE = dynamic(() => import("react-simplemde-editor"), {
+  ssr: false,
+});
 
 // interface to define shape/fields of form
 type TodoForm = z.infer<typeof createTodoSchema>;

@@ -3,7 +3,6 @@ import { Button, Card, Separator, Text } from "@radix-ui/themes";
 import { FiTrash2 } from "react-icons/fi";
 import { BiEditAlt } from "react-icons/bi";
 import Link from "next/link";
-import React from "react";
 import TodoPriorityBadge from "../_components/TodoPriorityBadge";
 
 const TodoPage = async () => {
