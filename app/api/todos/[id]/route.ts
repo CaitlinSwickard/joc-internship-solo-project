@@ -37,3 +37,27 @@ export async function PATCH(
   // return to client
   return NextResponse.json(updatedTodo);
 }
+
+// DELETE API
+export async function DELETE(
+  request: NextRequest,
+  { params }: { params: { id: string } }
+) {
+  const todo = await prisma.todo.findUnique({
+    where: { id: parseInt(params.id) },
+  });
+
+  // if todo does not exist
+  if (!todo)
+    return NextResponse.json(
+      { error: "Invalid Todo" },
+      { status: 404 }
+    );
+
+  //if todo exists
+  await prisma.todo.delete({
+    where: { id: todo.id },
+  });
+
+  return NextResponse.json({});
+}
