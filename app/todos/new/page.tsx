@@ -1,5 +1,10 @@
+import dynamic from "next/dynamic";
 
-import TodoForm from "../_components/TodoForm";
+// to help load form all at once
+const TodoForm = dynamic(
+  () => import("@/app/todos/_components/TodoForm"),
+  { ssr: false }
+);
 
 const NewTodoPage = () => {
   return <TodoForm />;
