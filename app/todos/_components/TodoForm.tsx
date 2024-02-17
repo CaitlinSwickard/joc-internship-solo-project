@@ -52,7 +52,7 @@ const TodoForm = ({ todo }: { todo?: Todo }) => {
               await axios.patch("/api/todos/" + todo.id, data);
             //patch api request
             else await axios.post("/api/todos", data); //post api request
-            router.push("/");
+            router.push("/todos");
             router.refresh();
           } catch (error) {
             setError("Unexpected Error!");
