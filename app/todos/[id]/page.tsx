@@ -1,7 +1,7 @@
 import prisma from "@/prisma/client";
 import { notFound } from "next/navigation";
-// import EditTodoButton from "./edit/EditTodoButton";
-// import TodoDetails from "./TodoDetails";
+import EditTodoButton from "./edit/EditTodoButton";
+import TodoDetails from "./TodoDetails";
 // import DeleteTodoButton from "./DeleteTodoButton";
 
 interface Props {
@@ -19,11 +19,11 @@ const TodoDetailPage = async ({ params }: Props) => {
   return (
     <>
       <div className="max-w-lg px-6 space-y-3 grid">
-        {/* <TodoDetails todo={todo} />
+        <TodoDetails todo={todo} />
       </div>
       <div className="px-6 mt-6 space-x-3">
         <EditTodoButton todoId={todo.id} />
-        <DeleteTodoButton todoId={todo.id} /> */}
+        {/* <DeleteTodoButton todoId={todo.id} /> */}
       </div>
     </>
   );
