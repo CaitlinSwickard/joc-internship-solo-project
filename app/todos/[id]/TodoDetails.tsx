@@ -1,7 +1,7 @@
 import { Heading, Separator, Text } from "@radix-ui/themes";
 import ReactMarkdown from "react-markdown";
 import { Todo } from "@prisma/client";
-import TodoPriorityBadge from "@/app/_components/TodoPriorityBadge";
+import TodoPriorityBadge from "@/app/components/TodoPriorityBadge";
 
 const TodoDetails = ({ todo }: { todo: Todo }) => {
   return (
@@ -11,7 +11,7 @@ const TodoDetails = ({ todo }: { todo: Todo }) => {
       {/* <Text color="gray">
         Create On: {todo.createdAt.toDateString()}
       </Text> */}
-      <div >
+      <div>
         <TodoPriorityBadge
           priority={todo.priority}
         ></TodoPriorityBadge>
