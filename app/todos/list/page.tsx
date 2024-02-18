@@ -3,17 +3,19 @@ import { Button, Card, Separator, Text } from "@radix-ui/themes";
 import { FiTrash2 } from "react-icons/fi";
 import { BiEditAlt } from "react-icons/bi";
 import Link from "next/link";
-import TodoPriorityBadge from "../components/TodoPriorityBadge";
+import TodoPriorityBadge from "../../components/TodoPriorityBadge";
+import TodoActions from "./TodoActions";
 
 const TodoPage = async () => {
   const todos = await prisma.todo.findMany();
   return (
     <>
-      <div className="mb-5">
+      {/* <div className="mb-5">
         <Button>
           <Link href="/todos/new">New Todo</Link>
         </Button>
-      </div>
+      </div> */}
+      <TodoActions/>
       <div className="space-y-3 px-6">
         <div className="grid grid-cols-3 gap-6">
           {todos.map((todo) => (
