@@ -1,7 +1,8 @@
+'use client'
 import { Priority } from "@prisma/client";
 import { Select } from "@radix-ui/themes";
 
-const priorities: { label: string; value?: Priority }[] = [
+const priorities: { label: string, value?: Priority }[] = [
   { label: "All" },
   { label: "High", value: "HIGH" },
   { label: "Medium", value: "MEDIUM" },

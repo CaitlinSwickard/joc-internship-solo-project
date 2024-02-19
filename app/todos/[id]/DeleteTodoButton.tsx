@@ -12,7 +12,7 @@ const DeleteTodoButton = ({ todoId }: { todoId: number }) => {
   const deleteTodo = async () => {
     try {
       await axios.delete("/api/todos/" + todoId);
-      router.push("/todos");
+      router.push("/todos/list");
       router.refresh();
     } catch (error) {
       setError(true);

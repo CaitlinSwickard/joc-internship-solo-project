@@ -7,7 +7,7 @@ const TodoActions = () => {
   return (
     <Flex justify="between" className="py-3 px-6 mb-5">
       <Button>
-        <Link href="todos/new-todo">Create New Todo</Link>
+        <Link href="/todos/new">Create New Todo</Link>
       </Button>
       <TodoPriorityFilter></TodoPriorityFilter>
     </Flex>
