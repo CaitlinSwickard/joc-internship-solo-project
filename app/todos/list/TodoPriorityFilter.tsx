@@ -1,8 +1,9 @@
-'use client'
+"use client";
 import { Priority } from "@prisma/client";
 import { Select } from "@radix-ui/themes";
+import { useRouter } from "next/navigation";
 
-const priorities: { label: string, value?: Priority }[] = [
+const priorities: { label: string; value?: Priority }[] = [
   { label: "All" },
   { label: "High", value: "HIGH" },
   { label: "Medium", value: "MEDIUM" },
@@ -10,8 +11,14 @@ const priorities: { label: string, value?: Priority }[] = [
 ];
 
 const TodoPriorityFilter = () => {
+  const router = useRouter();
   return (
-    <Select.Root>
+    <Select.Root
+      onValueChange={(priority) => {
+        const query = priority ? `?priority${priority}` : "";
+        router.push("/todos/list" + query);
+      }}
+    >
       <Select.Trigger placeholder="Filter by Priority..." />
       <Select.Content>
         {priorities.map((priority) => (

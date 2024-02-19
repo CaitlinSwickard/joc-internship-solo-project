@@ -5,9 +5,24 @@ import { BiEditAlt } from "react-icons/bi";
 import Link from "next/link";
 import TodoPriorityBadge from "../../components/TodoPriorityBadge";
 import TodoActions from "./TodoActions";
+import { Priority } from "@prisma/client";
 
-const TodoPage = async () => {
-  const todos = await prisma.todo.findMany();
+interface Props {
+  searchParams: { priority: Priority };
+}
+
+const TodoPage = async ({ searchParams }: Props) => {
+  // console.log(searchParams)
+  const priorities = Object.values(Priority);
+  const priority = priorities.includes(searchParams.priority)
+    ? searchParams.priority
+    : undefined;
+  // console.log(priorities)
+  const todos = await prisma.todo.findMany({
+    where: {
+      priority
+    },
+  });
   return (
     <>
       {/* <div className="mb-5">
@@ -15,7 +30,7 @@ const TodoPage = async () => {
           <Link href="/todos/new">New Todo</Link>
         </Button>
       </div> */}
-      <TodoActions/>
+      <TodoActions />
       <div className="space-y-3 px-6">
         <div className="grid grid-cols-3 gap-6">
           {todos.map((todo) => (
