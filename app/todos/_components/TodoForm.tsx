@@ -59,7 +59,7 @@ const TodoForm = ({ todo }: { todo?: Todo }) => {
           }
         })}
       >
-        <h4 className="underline">Create Todo Task:</h4>
+        <h4 className="underline">{todo ? "Update Todo" : "Create Todo"}</h4>
         <TextField.Root>
           <TextField.Input
             defaultValue={todo?.title}
@@ -107,7 +107,7 @@ const TodoForm = ({ todo }: { todo?: Todo }) => {
           </Text>
         )}
         <Button variant="outline" color="red">
-          {todo ? "Update ToDo" : "Submit New Todo"}
+          {todo ? "Update Todo" : "Submit New Todo"}
         </Button>
       </form>
     </div>

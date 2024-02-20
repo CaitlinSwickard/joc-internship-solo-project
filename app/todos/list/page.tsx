@@ -69,13 +69,14 @@ const TodoPage = async ({ searchParams }: Props) => {
             </Card>
           ))}
         </div>
+        <div className="mt-5">
+          <Pagination
+            pageSize={pageSize}
+            currentPage={page}
+            itemCount={todoCount}
+          />
+        </div>
       </div>
-
-      <Pagination
-        pageSize={pageSize}
-        currentPage={page}
-        itemCount={todoCount}
-      />
     </>
   );
 };

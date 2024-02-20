@@ -1,5 +1,5 @@
 import { Priority } from "@prisma/client";
-import { Card, Flex, Text } from "@radix-ui/themes";
+import { Card, Flex, Heading, Text } from "@radix-ui/themes";
 import Link from "next/link";
 import React from "react";
 
@@ -20,18 +20,26 @@ const TodoSummary = ({ high, medium, low }: Props) => {
     { label: "Low Priority", value: low, priority: "LOW" },
   ];
   return (
-    <Flex gap='4'>
-      {containers.map((container) => (
-        <Card key={container.label}>
-          <Flex direction="column" gap='1'>
-            <Link className="text-sm font-medium" href={`/todos/list?priority=${container.priority}`}>
-              {container.label}
-            </Link>
-            <Text size='5' className="font-bold">{container.value}</Text>
-          </Flex>
-        </Card>
-      ))}
-    </Flex>
+    <Card>
+      <Heading size='4' mb='5' >Todo's Priority Summary:</Heading>
+      <Flex gap="4">
+        {containers.map((container) => (
+          <Card key={container.label}>
+            <Flex direction="column" gap="1">
+              <Link
+                className="text-sm font-medium"
+                href={`/todos/list?priority${container.priority}`}
+              >
+                {container.label}
+              </Link>
+              <Text size="5" className="font-bold">
+                {container.value}
+              </Text>
+            </Flex>
+          </Card>
+        ))}
+      </Flex>
+    </Card>
   );
 };
 
