@@ -32,6 +32,7 @@ export async function PATCH(
       title: body.title,
       description: body.description,
       dueDate: body.dueDate,
+      priority: body.priority
     },
   });
   // return to client

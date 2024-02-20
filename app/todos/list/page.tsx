@@ -8,16 +8,20 @@ import TodoActions from "./TodoActions";
 import { Priority } from "@prisma/client";
 
 interface Props {
-  searchParams: { priority: Priority };
+  searchParams: { [key: string]: string };
 }
 
 const TodoPage = async ({ searchParams }: Props) => {
-  // console.log(searchParams)
+  // an array containing the keys of searchParams
+  const priorityKeys = Object.keys(searchParams);
+  // extracts all the values from the Priority enum and assigns them to the priorities variable
   const priorities = Object.values(Priority);
-  const priority = priorities.includes(searchParams.priority)
-    ? searchParams.priority
-    : undefined;
-  // console.log(priorities)
+  // priority is determined by finding the first priority value that matches the key in searchParams
+  const priority = priorities.find(p => priorityKeys.includes(`priority${p.toUpperCase()}`));
+  
+  // console.log(priorities);
+  // console.log(priority);
+
   const todos = await prisma.todo.findMany({
     where: {
       priority
@@ -25,11 +29,6 @@ const TodoPage = async ({ searchParams }: Props) => {
   });
   return (
     <>
-      {/* <div className="mb-5">
-        <Button>
-          <Link href="/todos/new">New Todo</Link>
-        </Button>
-      </div> */}
       <TodoActions />
       <div className="space-y-3 px-6">
         <div className="grid grid-cols-3 gap-6">

@@ -15,6 +15,7 @@ export async function POST(request: NextRequest) {
       title: body.title,
       description: body.description,
       dueDate: body.dueDate,
+      priority: body.priority
     },
   });
 
