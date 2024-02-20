@@ -70,10 +70,12 @@ const TodoPage = async ({ searchParams }: Props) => {
           ))}
         </div>
       </div>
+
       <Pagination
-      pageSize={pageSize}
-      currentPage={page}
-      itemCount={todoCount} />
+        pageSize={pageSize}
+        currentPage={page}
+        itemCount={todoCount}
+      />
     </>
   );
 };
