@@ -6,9 +6,13 @@ import Link from "next/link";
 import TodoPriorityBadge from "../../components/TodoPriorityBadge";
 import TodoActions from "./TodoActions";
 import { Priority } from "@prisma/client";
+import Pagination from "@/app/components/Pagination";
 
 interface Props {
-  searchParams: { [key: string]: string };
+  searchParams: {
+    [key: string]: string;
+    page: string;
+  };
 }
 
 const TodoPage = async ({ searchParams }: Props) => {
@@ -17,16 +21,25 @@ const TodoPage = async ({ searchParams }: Props) => {
   // extracts all the values from the Priority enum and assigns them to the priorities variable
   const priorities = Object.values(Priority);
   // priority is determined by finding the first priority value that matches the key in searchParams
-  const priority = priorities.find(p => priorityKeys.includes(`priority${p.toUpperCase()}`));
-  
+  const priority = priorities.find((p) =>
+    priorityKeys.includes(`priority${p.toUpperCase()}`)
+  );
   // console.log(priorities);
   // console.log(priority);
+  const where = { priority };
+
+  // pagination
+  const page = parseInt(searchParams.page) || 1;
+  const pageSize = 9;
 
   const todos = await prisma.todo.findMany({
-    where: {
-      priority
-    },
+    where,
+    skip: (page - 1) * pageSize,
+    take: pageSize,
   });
+
+  const todoCount = await prisma.todo.count({ where });
+
   return (
     <>
       <TodoActions />
@@ -57,6 +70,10 @@ const TodoPage = async ({ searchParams }: Props) => {
           ))}
         </div>
       </div>
+      <Pagination
+      pageSize={pageSize}
+      currentPage={page}
+      itemCount={todoCount} />
     </>
   );
 };
