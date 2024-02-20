@@ -5,6 +5,7 @@ import {
   Checkbox,
   Flex,
   RadioGroup,
+  Select,
   Text,
   TextField,
 } from "@radix-ui/themes";
@@ -18,6 +19,7 @@ import { todoSchema } from "../../validationSchema";
 import { z } from "zod";
 import { useRouter } from "next/navigation";
 import { Todo } from "@prisma/client";
+import PrioritySelector from "./PrioritySelector";
 
 // react-form interface pulling from Schema
 type TodoFormData = z.infer<typeof todoSchema>;
@@ -59,7 +61,9 @@ const TodoForm = ({ todo }: { todo?: Todo }) => {
           }
         })}
       >
-        <h4 className="underline">{todo ? "Update Todo" : "Create Todo"}</h4>
+        <h4 className="underline">
+          {todo ? "Update Todo" : "Create Todo"}
+        </h4>
         <TextField.Root>
           <TextField.Input
             defaultValue={todo?.title}
@@ -76,7 +80,7 @@ const TodoForm = ({ todo }: { todo?: Todo }) => {
         <TextField.Root>
           <TextField.Input
             defaultValue={todo?.dueDate}
-            placeholder="Due Date:  mm/dd/yy"
+            placeholder="Due Date:  yyyy/mm/dd"
             className="py-1 "
             {...register("dueDate")}
           />
@@ -87,7 +91,8 @@ const TodoForm = ({ todo }: { todo?: Todo }) => {
           </Text>
         )}
 
-          {/* Add select priority drop down here */}
+        {/* add selector here */}
+        <PrioritySelector/>
 
         <Controller
           name="description"
