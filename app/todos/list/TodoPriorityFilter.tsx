@@ -1,5 +1,5 @@
 "use client";
-import { Priority } from "@prisma/client";
+import { Todo, Priority } from "@prisma/client";
 import { Select } from "@radix-ui/themes";
 import { useRouter } from "next/navigation";
 
@@ -10,7 +10,7 @@ const priorities: { label: string; value?: Priority }[] = [
   { label: "Low", value: "LOW" },
 ];
 
-const TodoPriorityFilter = () => {
+const TodoPriorityFilter = ({ todo }: { todo: Todo }) => {
   const router = useRouter();
   return (
     <Select.Root

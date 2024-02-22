@@ -15,7 +15,7 @@ model Todo {
   id          Int      @id @default(autoincrement())
   title       String   @db.VarChar(255)
   description String   @db.Text
-  priority    Priority @default(HIGH)
+  priority    Priority 
   dueDate     String
   createdAt   DateTime @default(now())
 }

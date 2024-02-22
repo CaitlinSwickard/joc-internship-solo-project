@@ -2,9 +2,6 @@
 import {
   Button,
   Callout,
-  Checkbox,
-  Flex,
-  RadioGroup,
   Select,
   Text,
   TextField,
@@ -19,7 +16,8 @@ import { todoSchema } from "../../validationSchema";
 import { z } from "zod";
 import { useRouter } from "next/navigation";
 import { Todo } from "@prisma/client";
-import PrioritySelector from "./PrioritySelector";
+import { Priority } from "@prisma/client";
+import TodoPriorityBadge from "@/app/components/TodoPriorityBadge";
 
 // react-form interface pulling from Schema
 type TodoFormData = z.infer<typeof todoSchema>;
@@ -31,12 +29,27 @@ const TodoForm = ({ todo }: { todo?: Todo }) => {
     register,
     control,
     handleSubmit,
+    setValue,
     formState: { errors },
   } = useForm<TodoFormData>({
     resolver: zodResolver(todoSchema),
   });
 
   const [error, setError] = useState("");
+
+  // convert the string value to the corresponding enum value of Priority
+  const stringToPriority = (value: string): Priority => {
+    switch (value) {
+      case "HIGH":
+        return Priority.HIGH;
+      case "MEDIUM":
+        return Priority.MEDIUM;
+      case "LOW":
+        return Priority.LOW;
+      default:
+        throw new Error(`Invalid priority value: ${value}`);
+    }
+  };
 
   return (
     <div className="max-w-lg px-6 space-y-3 flex items-center justify-center">
@@ -92,7 +105,22 @@ const TodoForm = ({ todo }: { todo?: Todo }) => {
         )}
 
         {/* add selector here */}
-        <PrioritySelector/>
+        <Select.Root
+          defaultValue={todo?.priority}
+          onValueChange={(newValue) => setValue("priority", newValue)}
+        >
+          <Select.Trigger />
+          <Select.Content>
+            <Select.Group>
+              <Select.Label>Priority</Select.Label>
+              {Object.values(Priority).map((priority) => (
+                <Select.Item key={priority} value={priority}>
+                  {priority}
+                </Select.Item>
+              ))}
+            </Select.Group>
+          </Select.Content>
+        </Select.Root>
 
         <Controller
           name="description"
