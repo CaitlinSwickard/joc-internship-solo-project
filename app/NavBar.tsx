@@ -11,7 +11,7 @@ const NavBar = () => {
   // links to dynamically map out navbar
   const links = [
     { label: "Dashboard", href: "/" },
-    { label: "Todos", href: "/todos/list" },
+    { label: "Todo's", href: "/todos/list" },
   ];
   return (
     <nav className="flex space-x-6 border-b mb-5 px-5 h-14 items-center">
