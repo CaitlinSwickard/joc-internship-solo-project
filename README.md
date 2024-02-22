@@ -1,3 +1,7 @@
+# Todo App
+
+This is a simple todo app where users can create new todos, update existing todos, and delete todos. Each todo can be assigned a priority level (high, medium, low), and there is a filter component that allows users to filter todos by priority. The dashboard provides a summary of the number of todos under each priority level and displays a list of the latest todos created. 
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
@@ -17,6 +21,10 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
 This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+
+## Tutorial
+
+This project had helped being built following the Next.js Projects: Build an Issue Tracker tutorial by Mosh Hamedani.
 
 ## Learn More
 
